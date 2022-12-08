@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before  {                     
+    margin:0 ;
+    padding:0 ;
+    box-sizing: inherit ; 
+}
+
+body{
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+    
+    line-height: 1.7 !important;
+    color:$color-font-black !important;
+
+    background: $color-main-background-orange-yellow !important;
+  
+
+    box-sizing: border-box !important;
+    
+    padding: 0 !important; 
+
+        
+   
+}
+
+.dashboard-body {
+    background:  $color-main-background-dashboard !important;
+
+}
+
+::selection {
+    color: $color-font-white;
+    background: $color-selection-tealish-light-blue;
+  }

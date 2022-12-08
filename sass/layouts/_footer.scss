@@ -1,0 +1,52 @@
+.footer{
+    background-color: $color-background-tealish-blue;
+    padding: 0rem 0 0.1rem 0;
+
+
+    &_copyright-box{
+        text-align: center;
+
+    }
+    
+    &_copyright{
+        width: 20rem;
+        height: auto;
+        
+    }
+
+    &_author{
+        color: $color-font-white;
+        
+        padding-top: 2rem;
+    }
+    
+
+
+}
+
+
+.footer-staff{
+    background-color: $color-background-red-orange;
+    padding: 0rem 0 0.1rem 0;
+
+
+    &_copyright-box{
+        text-align: center;
+
+    }
+    
+    &_copyright{
+        width: 20rem;
+        height: auto;
+        
+    }
+
+    &_author{
+        color: $color-font-white;
+        
+        padding-top: 2rem;
+    }
+    
+
+
+}

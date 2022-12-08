@@ -1,0 +1,25 @@
+.section-login{
+    height: 100vh;
+
+
+    &--admin {
+    @include backgroundLogin;
+    height:inherit;
+    background-image: url("../includes/admin-background.svg"); 
+    }
+
+    &--register {
+        @include backgroundLogin;
+        height:inherit;
+        background-image: url("../includes/register-background.svg"); 
+        }
+
+
+}
+
+
+.error-msg {
+    font-size: 20px;
+    background: firebrick;
+    display: block;
+}

@@ -1,0 +1,52 @@
+.btn {
+    &,
+    &:link,
+    &:visited{
+        text-decoration:none !important;
+        padding: 3px 20px !important; 
+        display: inline-flex !important; 
+        transition: all .2s !important; 
+        font-size: 1rem !important;  
+
+        border: none !important;
+        cursor: pointer !important;
+        z-index: 3000 !important;
+    }
+}
+
+.btn-orange-rad{
+    &,
+    &:link,
+    &:visited{
+        border: 3px solid $color-button-orange !important;        
+        border-radius: 10px !important;
+       
+        font-weight: 500 !important;
+
+    }
+}
+
+.btn-white-rad{
+    &,
+    &:link,
+    &:visited{
+        border: 3px solid $color-button-white !important;        
+        border-radius: 10px !important;
+       
+        font-weight: 500 !important;
+
+    }
+}
+
+.btn-orange{
+    &,
+    &:link,
+    &:visited{
+        background: $color-button-orange !important;
+        border-radius: 10px !important;
+        padding: 8px 100px !important;
+        box-shadow: rgba(87%, 64%, 42%, 0.90) 0px 4px 10px;
+
+
+     }
+}

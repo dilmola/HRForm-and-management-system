@@ -1,0 +1,44 @@
+.header-start {
+    position: relative; 
+    padding: 3rem 2.2rem; 
+    
+    &__logo {
+        width: 10rem !important;
+
+    }
+    
+}
+
+
+
+.header-dashboard{
+    background: $color-background-tealish-blue;
+    background-image: url("../includes/header-pattern.svg"); 
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:100%;
+    
+    &__name {
+    color: $color-font-white !important;
+    position: relative !important; 
+    padding: 2.5rem 2.6rem !important; 
+    }
+}
+
+.header-dashboard-staff{
+    background: $color-background-red-orange !important;
+    background-image: url("../includes/header-pattern.svg") !important; 
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size:100% !important;
+    
+    &__name {
+    color: $color-font-white !important;
+    position: relative !important; 
+    padding: 2.5rem 2.6rem !important; 
+    }
+}
+
+

@@ -1,0 +1,21 @@
+
+thead th {
+    background-color: $color-border-orange !important;
+}
+
+.page-link{
+color: $color-font-black !important;
+
+    &.active,
+  .active > & {
+    background-color: $color-border-orange !important;
+    border-color: $color-border-orange !important;
+    }
+}
+
+.table {
+  > :not(caption) > * > * {
+    padding: 1.5rem 0.5rem !important;
+
+  }
+}

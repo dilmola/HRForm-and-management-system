@@ -1,0 +1,27 @@
+.form-control {
+    box-shadow: 0 0 10 0.01rem $color-font-black !important;
+    background-color: $color-form-background-eggshell !important;
+    
+    &:focus {
+        border-color: $color-button-orange !important;
+        box-shadow: 0 0 0 0.2rem $color-button-orange !important;
+
+    }
+}
+
+.form-select {
+    box-shadow: 0 0 10 0.01rem $color-font-black !important;
+    background-color: $color-form-background-eggshell !important;
+
+
+    &:focus {
+        border-color: $color-button-orange !important;
+        box-shadow: 0 0 0 0.2rem $color-button-orange !important;
+
+    }
+}
+
+.form-select option :hover {
+    background-color: #d11919 !important;
+}
+
