@@ -44,6 +44,13 @@ body {
 h2 {
   margin-bottom: 0 !important; }
 
+.font-size-big {
+  font-size: 5em !important;
+  font-weight: 200 !important; }
+
+.error-color {
+  color: red; }
+
 .border-left {
   border-left: 1px solid #0000001f;
   padding: 8px 8px 8px 20px !important; }
@@ -97,6 +104,15 @@ h2 {
 .margin-bottom-gap {
   margin-bottom: 12.5rem !important; }
 
+.padding-card-body {
+  padding: 3rem !important; }
+
+.margin-bottom-gap2 {
+  margin-bottom: 1.3rem; }
+
+.mb-22 {
+  margin-bottom: 22rem !important; }
+
 .card {
   border-radius: 0.4rem !important;
   box-shadow: #e1dccf 0px 3px 2px -2px !important;
@@ -147,6 +163,9 @@ h2 {
 .close:hover {
   color: #000000; }
 
+.card-height {
+  height: 2rem !important; }
+
 .body_form {
   width: 30rem !important;
   height: 100% !important;
@@ -156,29 +175,53 @@ h2 {
 
 .btn, .btn:link, .btn:visited {
   text-decoration: none !important;
-  padding: 3px 20px !important;
+  padding: 8px 20px !important;
   display: inline-flex !important;
-  transition: all .2s !important;
-  font-size: 1rem !important;
+  border-radius: 18px !important;
+  transition: all .10s !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  cursor: pointer !important;
+  background-color: #DEA26A !important;
+  z-index: 3000 !important; }
+
+.btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.144) !important;
+  background-color: #f0b47c !important; }
+  .btn:hover:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.144); }
+
+.btn-link, .btn-link:link, .btn-link:visited {
+  color: #f0b47c;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0 10px; }
+
+.btn-link:hover {
+  color: #DEA26A !important; }
+
+.btn-x, .btn-x:link, .btn-x:visited {
+  text-decoration: none !important;
+  padding: 8px 10px !important;
+  display: inline-flex !important;
+  border-radius: 18px !important;
+  transition: all .10s !important;
+  color: #000000 !important;
+  background-color: transparent !important;
   border: none !important;
   cursor: pointer !important;
   z-index: 3000 !important; }
 
-.btn-orange-rad, .btn-orange-rad:link, .btn-orange-rad:visited {
-  border: 3px solid #DEA26A !important;
-  border-radius: 10px !important;
-  font-weight: 500 !important; }
+.btn-b, .btn-b:link, .btn-b:visited {
+  color: #f0b47c;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0 10px; }
 
-.btn-white-rad, .btn-white-rad:link, .btn-white-rad:visited {
-  border: 3px solid #FFFFFF !important;
-  border-radius: 10px !important;
-  font-weight: 500 !important; }
-
-.btn-orange, .btn-orange:link, .btn-orange:visited {
-  background: #DEA26A !important;
-  border-radius: 10px !important;
-  padding: 8px 100px !important;
-  box-shadow: rgba(222, 163, 107, 0.9) 0px 4px 10px; }
+.btn-b:hover {
+  color: #DEA26A !important; }
 
 .popup {
   height: 100vh;
@@ -232,6 +275,15 @@ h2 {
     margin-bottom: 3rem;
     column-count: 2;
     column-gap: 4rem; }
+
+.padding-table {
+  padding: 0.4rem; }
+
+.margin-table {
+  margin: 2rem; }
+
+.text-left {
+  text-align: left !important; }
 
 .header-start {
   position: relative;
@@ -387,6 +439,25 @@ h2 {
 .form-select option :hover {
   background-color: #d11919 !important; }
 
+.border-primary {
+  border-color: none !important;
+  --bs-border-opacity: none !important; }
+
+.form-check-input {
+  width: 1.3em !important;
+  height: 1.3em !important;
+  margin-right: 1rem !important; }
+  .form-check-input:checked {
+    background-color: #DEA26A !important;
+    border-color: #DEA26A !important; }
+
+.col-sm-1 {
+  width: 3.3333% !important; }
+
+.form-control-2 {
+  width: 14% !important;
+  display: inline-flex !important; }
+
 .form-wrap.form-builder .frmb li.form-field {
   background-color: #fbf7f0 !important; }
 
@@ -405,3 +476,33 @@ thead th {
 
 .table > :not(caption) > * > * {
   padding: 1.5rem 0.5rem !important; }
+
+button.dt-button, button.dt-button:link, button.dt-button:visited, div.dt-button, div.dt-button:link, div.dt-button:visited, a.dt-button, a.dt-button:link, a.dt-button:visited, input.dt-button, input.dt-button:link, input.dt-button:visited {
+  text-decoration: none !important;
+  padding: 8px 12px !important;
+  display: inline-flex !important;
+  border-radius: 10px !important;
+  transition: all .10s !important;
+  color: #000000 !important;
+  background: #f0b47c6e !important;
+  border: none !important;
+  cursor: pointer !important; }
+
+button.dt-button:active, button.dt-button:hover, div.dt-button:active, div.dt-button:hover, a.dt-button:active, a.dt-button:hover, input.dt-button:active, input.dt-button:hover {
+  background: #DEA26A !important;
+  color: #000000 !important;
+  overflow: hidden; }
+
+.thead2 {
+  background-color: transparent !important;
+  box-shadow: none !important; }
+
+.thead-head2 {
+  background-color: #0000001f !important; }
+
+.thead-border-color {
+  border-color: #0000001f !important; }
+
+.bx-1 {
+  font-weight: bold !important;
+  cursor: pointer !important; }

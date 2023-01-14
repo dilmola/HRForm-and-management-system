@@ -19,3 +19,41 @@ color: $color-font-black !important;
 
   }
 }
+
+button.dt-button, div.dt-button, a.dt-button, input.dt-button{
+  &, 
+    &:link,
+    &:visited {
+    text-decoration: none !important; 
+    padding: 8px 12px !important; 
+    display: inline-flex !important; 
+    border-radius: 10px !important; 
+    transition: all .10s !important;
+    color: $color-font-black !important;
+    background: $color-button-orange-light-opacity !important;
+    border: none !important;
+    cursor: pointer !important;
+    }
+
+    &:active,&:hover {   
+      background: $color-border-orange !important;
+      color: $color-font-black !important;
+      overflow: hidden;
+
+    }
+
+}
+
+
+
+.thead2{
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.thead-head2{
+  background-color: #0000001f !important;}
+
+.thead-border-color{
+  border-color: #0000001f !important;
+}

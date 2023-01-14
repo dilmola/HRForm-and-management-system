@@ -25,3 +25,27 @@
     background-color: #d11919 !important;
 }
 
+.border-primary{
+    border-color: none !important;
+    --bs-border-opacity: none !important;
+}
+
+.form-check-input {
+    width: 1.3em !important;
+    height: 1.3em !important;
+    margin-right: 1rem !important;
+
+    &:checked{
+        background-color: $color-button-orange !important;
+        border-color: $color-button-orange !important;
+    }
+}
+
+.col-sm-1 {
+    width: 3.3333% !important;
+}
+
+.form-control-2{
+    width: 14% !important;
+    display: inline-flex !important;
+}

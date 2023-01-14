@@ -61,16 +61,16 @@ extract($_GET);
         
 
 
-
                         <!-- Sidebar part-->
-                                    <div class="sidebar-box">        
+                                   
+                            <div class="sidebar-box">        
                                         <div class="sidebar">
                                             <nav class="nav">
                             
                                                 
                             
                                                     <div class="nav__list">
-                                                        <a href="./staff-dashboard.php" class="nav__logo">
+                                                    <a href="./admin-dashboard.php?id=<?php echo $user_id?>" class="nav__logo">
                                                             <img src="includes/logo.svg" alt="" class="nav__logo" >
                                                         </a>
                                                         
@@ -79,13 +79,12 @@ extract($_GET);
                                                     <div class="nav__list">
                                                     <a href="#" class="nav__link d-flex justify-content-start">
                                                             <i class='bx bx-user nav__icon' ></i>
+
                                                             <span class="nav__name">Employee</span>
                                                             <i class='bx bx-chevron-down'></i>
                                                         </a>
                                                         <div class="sub-menu ">
                                                             <a href="./add-staff.php" class="sub-item nav__link border-top">Add employee</a>
-                                                            <a href="#" class="sub-item nav__link border-top">Add status employee </a>
-                                                            
                                                         </div>
                                                     </div>
                                                     
@@ -94,13 +93,12 @@ extract($_GET);
                                                         
                                                         <a href="#" class="nav__link d-flex justify-content-start">
                                                             <i class='bx bx-message-square-detail nav__icon' ></i>
-                                                            <span class="nav__name">Add data</span>
+                                                            <span class="nav__name">Data</span>
                                                             <i class='bx bx-chevron-down'></i>
 
                                                         </a>
                                                         <div class="sub-menu ">
-                                                            <a href="#" class="sub-item nav__link border-top">Employee satisfaction</a>
-                                                            
+                                                            <a href="./staff-performance.php?id=<?php echo $user_id?>" class="sub-item nav__link border-top">Add Performances </a>
                                                         </div>
                                                     </div>
                                             
@@ -113,7 +111,7 @@ extract($_GET);
                                                         <div class="sub-menu ">
                                                                 <a href="./response-list.php" class="sub-item nav__link border-top">Response list</a>
                                                                 <a href="./create-form.php" class="sub-item nav__link border-top">Create Form</a>
-                                                                <a href="#" class="sub-item nav__link border-top">Form template</a>
+                                                                <a href="./form-bookmark.php" class="sub-item nav__link border-top">Bookmark</a>
 
                                                         </div>
                                     
@@ -125,7 +123,7 @@ extract($_GET);
                                                 
                                                     
                                                     <div class="nav__list ">
-                                                        <a href="./login.html" class="nav__link">
+                                                        <a href="./logout.php" class="nav__link">
                                                                 <i class='bx bx-log-out nav__icon' ></i>
                                                                 <span class="nav__name">Log Out</span>
 

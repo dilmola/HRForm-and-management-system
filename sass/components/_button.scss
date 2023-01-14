@@ -1,52 +1,91 @@
-.btn {
-    &,
+.btn{
+    &, 
     &:link,
-    &:visited{
-        text-decoration:none !important;
-        padding: 3px 20px !important; 
-        display: inline-flex !important; 
-        transition: all .2s !important; 
-        font-size: 1rem !important;  
+    &:visited {
+    text-decoration: none !important; 
+    padding: 8px 20px !important; 
+    display: inline-flex !important; 
+    border-radius: 18px !important; 
+    transition: all .10s !important;
+    color: $color-font-white !important;
+  
+    border: none !important;
+    cursor: pointer !important;
 
-        border: none !important;
-        cursor: pointer !important;
-        z-index: 3000 !important;
+    background-color: $color-button-orange !important;
+    z-index: 3000 !important;
     }
-}
 
-.btn-orange-rad{
-    &,
-    &:link,
-    &:visited{
-        border: 3px solid $color-button-orange !important;        
-        border-radius: 10px !important;
+    &:hover {    
+    transform: translateY(-3px) !important;   
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.144) !important;  
+    background-color: $color-button-orange-light !important;
+
+
+    &:active {   
+        transform: translateY(-1px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.144);
+    }
+    
+     
+    
        
-        font-weight: 500 !important;
+    
+}
+}
+
+.btn-link { 
+    &, 
+    &:link,
+    &:visited {
+    color: $color-button-orange-light;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0 10px;
+    }
+
+    &:hover {
+    color: $color-button-orange !important;
 
     }
 }
 
-.btn-white-rad{
-    &,
+.btn-x{
+    &, 
     &:link,
-    &:visited{
-        border: 3px solid $color-button-white !important;        
-        border-radius: 10px !important;
+    &:visited {
+    text-decoration: none !important; 
+    padding: 8px 10px !important; 
+    display: inline-flex !important; 
+    border-radius: 18px !important; 
+    transition: all .10s !important;
+    color: $color-font-black !important;
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+
+    z-index: 3000 !important;
+    }
+
+     
+    
        
-        font-weight: 500 !important;
+    
+}
+
+.btn-b{
+    &, 
+    &:link,
+    &:visited {
+    color: $color-button-orange-light;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0 10px;
+    }
+
+    &:hover {
+    color: $color-button-orange !important;
 
     }
 }
 
-.btn-orange{
-    &,
-    &:link,
-    &:visited{
-        background: $color-button-orange !important;
-        border-radius: 10px !important;
-        padding: 8px 100px !important;
-        box-shadow: rgba(87%, 64%, 42%, 0.90) 0px 4px 10px;
-
-
-     }
-}

@@ -1,10 +1,15 @@
 <?php 
-require_once('DBConnection.php');
+require('DBConnection.php');
+
+
+
 
 
 
 
 Class Forms extends DBConnection{
+    
+
     public function __construct(){
 		parent::__construct();
 	}
@@ -52,9 +57,17 @@ Class Forms extends DBConnection{
 
     }
     public function save_response(){
+        
+
         extract($_POST);
-        $data = " form_code = '$form_code' ";
-        $rl_insert = $this->conn->query("INSERT INTO response_list set $data ");
+        
+        
+
+        $data = ("form_code = '$form_code' ") ;
+        
+
+        $rl_insert = $this->conn->query("INSERT INTO response_list SET $data ");
+        
         if($rl_insert){
             $response_list_id = $this->conn->insert_id;
         }else{
@@ -75,6 +88,8 @@ Class Forms extends DBConnection{
                 }
             }
         }
+
+        
         if(isset($_FILES['q']['tmp_name'])){
             foreach($_FILES['q']['tmp_name'] as $k => $v){
                 if(!empty($data)) $data .= ",";
@@ -97,6 +112,7 @@ Class Forms extends DBConnection{
         }
         return json_encode($resp);
     }
+
     public function delete_form(){
         extract($_POST);
         $response_list_id = $this->conn->query("SELECT * FROM `response_list` where form_code = '$form_code'");

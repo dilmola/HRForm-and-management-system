@@ -1,24 +1,66 @@
 <?php 
 require_once('./classes/DBConnection.php');
 
-
-if (isset($_POST['submit1'])) {
-    session_start();
-
-
-    $username = mysqli_real_escape_string($conn,$_POST['username']);
-    $email = mysqli_real_escape_string($conn,$_POST['email']);
-    $password = mysqli_real_escape_string($conn,$_POST['password']);
-
-    $sql = "INSERT INTO user (username, email, password) VALUES('$username', '$email','$password')";
-    mysqli_query($conn, $sql);
-
-    $_SESSION['username'] = "You are logged in";
-    header("location: login.php");
-}
 ?>
 
+<?php
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    {
 
+        if (empty ($_POST["username"])) {  
+            $errMsg1 = "Error! You didn't enter the username.";  
+        } else {  
+            $name = $_POST["username"];  
+        }  
+    
+        if (empty ($_POST["email"])) {  
+            $errMsg2 = "Error! You didn't enter the email.";  
+        } else {  
+            $email = $_POST["email"];  
+        }  
+    
+        if (empty ($_POST["pass"])) {  
+            $errMsg2 = "Error! You didn't enter the pass.";  
+        } else {  
+            $pass = $_POST["pass"];  
+        }  
+        $name=mysqli_real_escape_string($conn,$_POST["username"]);
+        $password=mysqli_real_escape_string($conn,$_POST["email"]);
+        $pass=mysqli_real_escape_string($conn,$_POST["pass"]);
+
+
+        $count=0;
+        $insert = "INSERT INTO user (username, email, pass, role_id, status_id, form_id, gender_id) VALUES ('$name', '$email', '$pass' , '2' ,'1' ,NULL, '1')";
+        $result = mysqli_query($conn, $insert);
+      
+
+  
+        if($result)
+        {
+            header("location: login.php");
+        }    
+        else
+        {
+            echo "error :" .$insert;
+        }
+        
+    
+    }
+
+ 
+
+
+ 
+
+    
+    
+
+
+
+
+}        
+?>
 
 
 <!DOCTYPE html>
@@ -132,26 +174,7 @@ if (isset($_POST['submit1'])) {
 <?php
  
 if(isset($_POST["submit1"]))
-{
 
-    $name = $_POST['username'] ;
-    $email = $_POST['email'] ;
-    $pass = $_POST['pass'] ;
-
-    $insert = "INSERT INTO user (username, email, pass, role_id, status_id, form_id, gender_id) VALUES ('$name', '$email', '$pass' , '2' ,'1' ,NULL, '1')";
-    $result = mysqli_query($conn, $insert);
-
-    if($result)
-    {
-        header("location: login.php");
-    }    
-    else
-    {
-        echo "error :" .$insert;
-    }
-    
-
-}
 
 ?>
 

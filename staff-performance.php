@@ -3,23 +3,28 @@
 ob_start();
 require_once('./classes/DBConnection.php');
 $db = new DBConnection();
-
-$page = isset($_GET['p']) ? $_GET['p'] : "admin-dashboard";
-ob_end_flush();
 session_start();
 
-?>
+ob_end_flush();
 
-<?php 
+
+
 $id = $_GET['id'];
-$query = mysqli_query($conn, "SELECT * from form_list WHERE id='$id'");
+
+
+$query = mysqli_query($conn, "SELECT * from user WHERE id='$id'");
 
 while ($row = mysqli_fetch_array($query )){
-  $form_id = $row['id'];
-  $due_date = $row['date_expired'];
+  $user_id = $row['id'];
+  $fullname = $row['fullname'];
+$username = $row['username'];
+
 }
 
+
+
 ?>
+
 <?php
 if (isset($_SESSION["email"])){
     $email = $_SESSION["email"];
@@ -28,13 +33,14 @@ if (isset($_SESSION["email"])){
     $select_user_email_query = mysqli_query($conn, $query);
 
     while($row = mysqli_fetch_array($select_user_email_query)) {
-        $user_id = $row['id'];
-        $username = $row['username'];
+        $username2 = $row['username'];
 
     }
 }
 
 ?>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -62,7 +68,7 @@ if (isset($_SESSION["email"])){
       <div class="admin-dashboard">
         <header class="header-dashboard d-flex justify-content-end">
                 
-        <h2 class="header-dashboard__name">Hi! <?php echo $username; ?></h2>
+        <h2 class="header-dashboard__name">Hi! <?php echo $username2; ?></h2>
                   
         </header>
         
@@ -151,14 +157,14 @@ if (isset($_SESSION["email"])){
                                         <div class="container-fluid">
 
                                             <div class="card-1">
-                                                <h2 class="mb-4 border-bottom">Send from to staff</h1>
+                                                <h2 class="mb-4 border-bottom">Data</h1>
           
                                                 <div class="row mb-5">
                                                         <div class="col-lg-12">
                                                             <div class="card">
                                                                 <div class="stat-widget-two card-body">
                                                                     <div class="card-header">
-                                                                        <h4 class="heading-secondary mb-2">Staff List</h4>
+                                                                        <h4 class="heading-secondary mb-2">Add Performance</h4>
                                                                     </div>
 
                                                                     <div class="card-body">
@@ -168,12 +174,14 @@ if (isset($_SESSION["email"])){
                                                                                             <table id="forms-tbl-2" class="table table-striped" width="100%">
                                                                                               <thead>
                                                                                                         <tr>
-                                                                                                          <th class="text-center">Staff list </th>
                                                                                                           <th class="text-center">#</th>
                                                                                                           <th class="text-center">Username</th>
                                                                                                           <th class="text-center">Fullname</th>
                                                                                                           <th class="text-center">Role</th>
                                                                                                           <th class="text-center">Gender</th>
+                                                                                                          <th class="text-center">Staff performance</th>
+                                                                                                          <th class="text-center">checklist</th>
+
                                                                                                         </tr>
                                                                                               </thead>
                                                                             
@@ -182,34 +190,32 @@ if (isset($_SESSION["email"])){
                                                                           
                                                                                               <tbody>
                                                                                                 <?php
-                                                                                                    $rows = mysqli_query($conn, "SELECT user.id,user.username, user.fullname, user.phone, user.email, gender.gender, role.role, status.status 
+                                                                                                    $rows = mysqli_query($conn, "SELECT user.id,user.username, user.fullname, user.phone, user.email, user.staff_performance_num, gender.gender, role.role, status.status 
                                                                                                     FROM user 
                                                                                                     JOIN gender ON gender_id = gender.id 
                                                                                                     JOIN role ON role_id = role.id 
-                                                                                                    JOIN status ON status_id = status.id WHERE role_id = '1'");
+                                                                                                    JOIN status ON status_id = status.id;");
                                                                                                     $i = 1;
                                                                                                     foreach($rows as $row) :
                                                                                                 ?>
                                                                                                                   
                                                                                                     <tr>
-                                                                                                      <td class="text-center"> <input class="form-check-input" type="checkbox" name="sendID[]" value="<?php echo $row['id']; ?>"> </td>
                                                                                                       <td class="text-center"><?php echo $i++; ?></td>
                                                                                                       <td class="text-center"><?php echo $row["username"]; ?></td>
                                                                                                       <td class="text-center"><?php echo $row["fullname"]; ?></td>
                                                                                                       <td class="text-center"><?php echo $row["role"]; ?></td>
                                                                                                       <td class="text-center"><?php echo $row["gender"]; ?></td>
+                                                                                                      <td class="text-center"><?php echo $row["staff_performance_num"]; ?></td>
+                                                                                                      <td class="text-center"><a href="./staff-performance.php?id=<?php echo $row['id'] ?>" class="btn-link">Checklist</a></td>
                                                                                                     </tr>
                                                                                                                                                         
-                                                                                                                    
+                                                                
                                                                                                     <?php endforeach; ?>
 
                                                                                                 
                                                                                               </tbody>
-                                                                                            </table>    
-                                                                                            
-                                                                                           
-                                                                                            <button class="btn btn-white-rad center-item " onClick="mensaje()" type="submit" name="send">Send</button>
-                                                                                        </form>
+                                                                                            </table>   
+                                                                                  </form>
 
                                                                     </div>
                                                                     
@@ -220,6 +226,53 @@ if (isset($_SESSION["email"])){
                                                     </div>   
 
                                                 </div>
+
+                                                <div class="row mb-5">
+                                                        
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="stat-widget-two card-body">
+                                                                    <div class="card-header">
+
+                                                                        <h4 class="heading-secondary mb-2">Employee Performance Evaluation Checklist </h4>
+                                                           
+                                                                    </div>
+                                                                    <div class="card-header">
+                                                                        <?php
+                                                                        
+                                                                            echo 'Name of staff:&nbsp&nbsp', $fullname;
+
+                                                                          
+                                                                        ?>
+                                                                    </div>
+                                                                    <div class="card-body padding-card-body">
+                                                                        <form action="" class="row" method="post">
+
+                                                                        
+                                                                            <div class="col-lg-12">
+                                                                                <p><input class="form-check-input" type = "checkbox" value = "box" name = "checkbox[]"/>Problem Solving ‐ How well does the employee solve complex problems?</input></p><br>
+                                                                                <p><input class="form-check-input" type = "checkbox" value = "box" name = "checkbox[]"/>Decision Making ‐ How well does the employee make critical decisions on their own?</input></p><br>
+                                                                                <p><input class="form-check-input" type = "checkbox" value = "box" name = "checkbox[]"/>Taking Criticism ‐ How good is this employee's ability to receive open feedback from subordinates?</input></p><br>
+                                                                                <p><input class="form-check-input" type = "checkbox" value = "box" name = "checkbox[]"/>Written Communication ‐ How well does this employee communicate in writing?</input></p><br>
+                                                                                <p><input class="form-check-input" type = "checkbox" value = "box" name = "checkbox[]"/>Team Player ‐ Is this employee a team player? How well do they work towards a common goal?</input></p><br>
+
+                                                                                <input onclick="toggleClock()" id="clockButton" type="submit" name="submit1" class="btn btn-orange-rad" value="save">
+                                                                            </div>    
+                                                                            
+                                                                        </form>    
+                                                                    </div>
+
+                                                                    
+                                                                    
+                                                                </div>
+
+
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                </div>   
+
                                             </div>
                                                 
                                         
@@ -275,18 +328,48 @@ if (isset($_SESSION["email"])){
         <script src="js/delete-data.js"></script>
         <script src="js/datatable.js"></script>
         <script src="js/script.js"></script>
-      
+
         
     </body>
 </html>
 
+
+
 <?php
 
-if(isset($_POST["send"]) && isset($_POST["sendID"])){
-  foreach($_POST["sendID"] as $sendID){
-    $send = "INSERT INTO sendform_list (form_id, user_id) VALUES ('$form_id','$sendID') ";
+if(isset($_POST["submit1"]))
+{ 
+$checked_arr = $_POST['checkbox'];
+$count = count($checked_arr);
+$insert = "UPDATE user SET staff_performance_num = $count WHERE id = $user_id";
 
-    mysqli_query($conn, $send);
-  }
+$result = mysqli_query($conn, $insert);
+
+
+
 }
 ?>
+
+<?php
+$results = mysqli_query($conn, "SELECT sum(staff_performance_num) FROM user");
+$rows = mysqli_fetch_array($results);
+
+$number = $rows['sum(staff_performance_num)'];
+
+
+$results2 = mysqli_query($conn, "SELECT * FROM user");
+$number2 = mysqli_num_rows($results2);
+
+
+$total = ((  $number/ ($number2 * 5)) * 100 );
+
+
+$insert =  mysqli_query($conn, "UPDATE staff_performance_month SET stafF_performance_percentage = $total 
+                                WHERE current_month = DATE_FORMAT(CURDATE(),'%y-%m-01')");
+$result = mysqli_query($conn, $insert);
+
+
+?>
+
+
+

@@ -8,6 +8,26 @@ $db = new DBConnection();
 <?php
 if (isset($_SESSION["email"])){
     $email = $_SESSION["email"];
+    $query = "SELECT user.id, user.username, user.form_id,  form_list.date_created, form_list.date_expired
+    FROM user
+    CROSS JOIN form_list WHERE email = '{$email}'";
+    $select_user_email_query = mysqli_query($conn, $query);
+
+    while($row = mysqli_fetch_array($select_user_email_query)) {
+        $user_id = $row['id'];
+        $username = $row['username'];
+        $form_id = $row['form_id'];
+        $exp_date = $row['date_expired'];
+        $exp_created = $row['date_created'];
+
+    }
+}
+
+?>
+
+<?php
+if (isset($_SESSION["email"])){
+    $email = $_SESSION["email"];
     $query = "SELECT * FROM user WHERE email = '{$email}'";
 
     $select_user_email_query = mysqli_query($conn, $query);
@@ -15,11 +35,13 @@ if (isset($_SESSION["email"])){
     while($row = mysqli_fetch_array($select_user_email_query)) {
         $user_id = $row['id'];
         $username = $row['username'];
-        $form_id = $row['form_id'];
+
     }
 }
 
 ?>
+
+
 
 
 
@@ -70,40 +92,17 @@ if (isset($_SESSION["email"])){
                                                         
                                                     </div>
                             
-                                                    
-                                                    <div class="nav__list">
-                                                        
-                                                        
-                                                        <a href="#" class="nav__link d-flex justify-content-start">
-                                                            <i class='bx bx-message-square-detail nav__icon' ></i>
-                                                            <span class="nav__name">Request</span>
-                                                            <i class='bx bx-chevron-down'></i>
+                                                 
 
+                                                    <div class="nav__list mb-22">     
+                                                        <a href="./staff-satisfaction.php?id=<?php echo $user_id?>" class="nav__link d-flex justify-content-start">
+                                                            <i class='bx bx-message-square-detail nav__icon' ></i>
+                                                            <span class="nav__name">Satisfaction</span>
                                                         </a>
-                                                        <div class="sub-menu ">
-                                                            <a href="#" class="sub-item nav__link border-top">Form</a>
-                                                            
-                                                        </div>
+                                                
                                                     </div>
                                             
-                                                    <div class="nav__list margin-bottom-gap">
-                                                        <a href="#" class="nav__link d-flex justify-content-start">
-                                                            <i class='bx bx-grid-alt nav__icon' ></i>
-                                                            <span class="nav__name">Attendance</span>
-                                                            <i class='bx bx-chevron-down'></i>
-                                                        </a>
-                                                        <div class="sub-menu ">
-                                                                <a href="./response-list.php" class="sub-item nav__link border-top">Response list</a>
-                                                                <a href="./create-form.php" class="sub-item nav__link border-top">Create Form</a>
-                                                                <a href="#" class="sub-item nav__link border-top">Form template</a>
-
-                                                        </div>
-                                    
-                                                    
-                                                        
-                                                        
-                                                    </div>
-
+                                                   
                                                 
                                                     
                                                     <div class="nav__list ">
@@ -141,8 +140,34 @@ if (isset($_SESSION["email"])){
 
                                                                 <div class="stat-content  stat-sub d-flex justify-content-between align-items-center position-relative ">
 
-                                                                    <p class="position-absolute top-50 start-50 translate-middle fs-5">Hello <?php echo $username; ?><br>
-                                                                        Today you have 9 messages<br>
+                                                                    <p class="position-absolute top-50 start-50 translate-middle fs-5">Hello <b><?php echo $username; ?></b><br>
+                                                                    
+                                                                                    <?php
+
+
+
+                                                                                    $exp=strtotime($exp_date);
+                                                                                    $crt=strtotime($exp_created);
+
+                                                                                    if($crt>$exp)
+                                                                                    {
+                                                                                        $diff=$crt-$exp;
+                                                                                        $x=abs (floor($diff / (60 * 60 * 24)));
+
+                                                                                        echo " Form already due date";
+                                                                                        echo "<br/>DAYS : <b> " .$x  ."</b>";
+                                                                                        
+                                                                                    }
+                                                                                    else
+                                                                                    {   
+                                                                                        $diff=$crt-$exp;
+                                                                                        $x=abs (floor($diff / (60 * 60 * 24)));
+                                                                                        echo "Form not due date ";
+                                                                                        echo "<br/>DAYS: <b> ".$x ."</b>";
+                                                                                    }
+
+                                                                                    ?>
+                                                                        <br>
                                                                         
                                                                     </p>
 
@@ -165,14 +190,14 @@ if (isset($_SESSION["email"])){
                                                 <div class="row mb-4">
                                                     <div class="col">
                                                         <div class="card">
-                                                            <div class="card-body item-content-2 ">
+                                                            <div class="card-body item-content-2">
                                                                 <div class="stat-content stat-sub d-flex justify-content-between align-items-center">
                                                                     <div class="sub-text">
                                                                         <div class="stat-text">Number of submission </div>
                                                                         <div class="stat-digit"> 
                                                                         <?php
                                     
-                                                                        $number_user = "SELECT * from response_list";
+                                                                        $number_user = "SELECT * from response_list WHERE user_id = '$user_id'";
                                                                         $number_user_run = mysqli_query($conn, $number_user);
 
                                                                         if($number_total = mysqli_num_rows($number_user_run))
@@ -197,36 +222,45 @@ if (isset($_SESSION["email"])){
                             
                                                                     
                                                                 </div>
-
                                                                 <div class="stat-content border-left stat-sub d-flex justify-content-between align-items-center">
+                                                                <div class="sub-text">
+                                                                        <div class="stat-text">Staff performance result </div>
+                                                                        <div class="stat-digit"> 
+                                                                        <?php
+                                    
+                                                                        $staff_performance_num = "SELECT staff_performance_num FROM user WHERE id =  '$user_id'";
+                                                                        $number_staff_performance_num = mysqli_query($conn, $staff_performance_num);
 
+                                                                        if($row = mysqli_fetch_array($number_staff_performance_num)) {
+                                                                            $staff_performance_num = $row['staff_performance_num'];
+                                                                        }else{
+                                                                            echo '<h4> No data </h4>';
+
+                                                                        }
+                                                                        
+                                                                        if($staff_performance_num <= 0) {
+                                                                            echo '<h4> No data </h4>';
+
+                                                                        }elseif($staff_performance_num <= 2) {
+                                                                            echo '<h4> Bad </h4>';
+
+                                                                        }else{
+                                                                            echo '<h4> Good </h4>';
+                                                                        }
                                                                     
-                                                                        <div class="sub-text">
-                                                                            <div class="stat-text">Employee of the month</div>
-                                                                            <div class="stat-digit"> 
+                                                                        
+                                                                        ?>
 
-                                                                            <?php
-                                                                                    $number_user = "SELECT * from form_list";
-                                                                                $number_user_run = mysqli_query($conn, $number_user);
+                                                                        </div> 
+                                                                    </div>
 
-                                                                                if($number_total = mysqli_num_rows($number_user_run))
-                                                                                {
-                                                                                    echo '<h4>' .$number_total. '<h4>';
-                                                                                }else{
-                                                                                    echo '<h4> No data </h4>';
-                                                                                }
+                                                                    <div class="sub-logo box-logo">
+                                                                        <img src="includes/icons/form_submission.svg" alt="" class="icon-size" >
 
-                                                                            ?>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="sub-logo box-logo-end">
-                                                                        <img src="includes/icons/form_number.svg" alt="" class="icon-size" >
-
-                                                                        </div>
-                                                                    
-                                                                    
+                                                                    </div>
                                                                 </div>
+
+                                                                
                                                                 
                                                             </div>
                                                         </div>
@@ -248,13 +282,12 @@ if (isset($_SESSION["email"])){
 
                                                                     <div class="card-body">
                                                                         <table id="forms-tbl" class="table table-striped" width="100%">
-                                                                            <thead>
+                                                                            <thead >
                                                                                 <tr>
                                                                                     <th>#</th>
-                                                                                    <th>DateTime</th>
-                                                                                    <th>Code</th>
                                                                                     <th>Title</th>
-                                                                                    <th>URL</th>
+                                                                                    <th>Due date</th>
+                                                                                    <th>Time remaining</th>
                                                                                     <th>Action</th>
                                                                                 </tr>
                                                                             </thead>
@@ -262,21 +295,23 @@ if (isset($_SESSION["email"])){
                                                                                 <tbody class=table-group-divider>
                                                                                     <?php 
                                                                                         $i = 1;
-                                                                                            $rows = mysqli_query($conn, "SELECT form_list.id, form_list.form_code, form_list.title, form_list.date_created 
-                                                                                            FROM form_list WHERE id = $form_id;");
+                                                                                            $rows = mysqli_query($conn, "SELECT form_list.id, form_list.title, form_list.date_expired, form_list.form_code, user.id FROM sendform_list
+                                                                                            INNER JOIN form_list ON   sendform_list.form_id = form_list.id
+                                                                                            INNER JOIN user ON  sendform_list.user_id = user.id
+                                                                                            WHERE user_id = $user_id;");
+                                                                                            if($rows)
                                                                                            foreach($rows as $row) :
                                                                                         ?>
                                                                                             <tr>
                                                                                                 <td class="text-center"><?php echo $i++ ?></td>
-                                                                                                <td><?php echo date("M d,Y h:i A",strtotime($row['date_created'])) ?></td>
-                                                                                                <td><?php echo $row['form_code'] ?></td>
                                                                                                 <td><?php echo $row['title'] ?></td>
-                                                                                                <td><a href="./form.php?code=<?php echo $row['form_code'] ?>">form.php?code=<?php echo $row['form_code'] ?></a></td>
+                                                                                                <td><?php echo $row['date_expired'] ?></td>
+                                                                                                <td><?php echo $x." days"?> </td>
+
                                                                                                 <td class='text-center'>
-                                                                                                    <a href="./view_form-staff.php?code=<?php echo $row['form_code'] ?>" class="btn btn-default border">View</a>
-                                                                                                    <a href="./view_responses.php?&code=<?php echo $row['form_code'] ?>" class="btn btn-default border">Responses</a>
-                                                                                                    <a href="delete-form.php?id=<?php echo $row["id"] ?>" class="btn btn-default border btn-del" ><i class='bx bx-trash-alt'></i></a>
-                                                                                                    <a href="sendform-user.php?id=<?php echo $row["id"] ?>" class="btn btn-default border" name="submit2" type="button">send</a>
+                                                                                                    <a class="btn-link" href="./form.php?id=<?php echo $row['id']?>& code=<?php echo $row['form_code']?>">Answer </a>
+                                                                                                    <a class="btn-link" href="./require_id.php?id=<?php echo $row["id"]?>&code=<?php echo $row["form_code"]?>">Send ID </a>
+
                                                                                                     
                                                                                                 </td>
                                                                                             </tr>
@@ -395,3 +430,4 @@ if(isset($_POST["submit2"]))
   
 
 ?>
+

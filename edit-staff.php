@@ -1,8 +1,24 @@
 <?php 
 ob_start();
 require_once('./classes/DBConnection.php');
-?>
+session_start();
 
+?>
+<?php
+if (isset($_SESSION["email"])){
+    $email = $_SESSION["email"];
+    $query = "SELECT * FROM user WHERE email = '{$email}'";
+
+    $select_user_email_query = mysqli_query($conn, $query);
+
+    while($row = mysqli_fetch_array($select_user_email_query)) {
+        $user_id = $row['id'];
+        $username2 = $row['username'];
+
+    }
+}
+
+?>
 <?php
 $id=$_GET["id"];
 $username="";
@@ -54,7 +70,7 @@ while($row=mysqli_fetch_array($res))
         <div class="admin-dashboard">
             <header class="header-dashboard d-flex justify-content-end">
                 
-                    <h2 class="header-dashboard__name">Hi! Aidil</h2>
+            <h2 class="header-dashboard__name">Hi! <?php echo $username2; ?></h2>
                   
             </header>
         
@@ -62,14 +78,15 @@ while($row=mysqli_fetch_array($res))
 
 
                         <!-- Sidebar part-->
-                                    <div class="sidebar-box">        
+                                   
+                                            <div class="sidebar-box">        
                                         <div class="sidebar">
                                             <nav class="nav">
                             
                                                 
                             
                                                     <div class="nav__list">
-                                                        <a href="./admin-dashboard.php" class="nav__logo">
+                                                    <a href="./admin-dashboard.php?id=<?php echo $user_id?>" class="nav__logo">
                                                             <img src="includes/logo.svg" alt="" class="nav__logo" >
                                                         </a>
                                                         
@@ -78,13 +95,12 @@ while($row=mysqli_fetch_array($res))
                                                     <div class="nav__list">
                                                     <a href="#" class="nav__link d-flex justify-content-start">
                                                             <i class='bx bx-user nav__icon' ></i>
+
                                                             <span class="nav__name">Employee</span>
                                                             <i class='bx bx-chevron-down'></i>
                                                         </a>
                                                         <div class="sub-menu ">
                                                             <a href="./add-staff.php" class="sub-item nav__link border-top">Add employee</a>
-                                                            <a href="#" class="sub-item nav__link border-top">Add status employee </a>
-                                                            
                                                         </div>
                                                     </div>
                                                     
@@ -93,13 +109,12 @@ while($row=mysqli_fetch_array($res))
                                                         
                                                         <a href="#" class="nav__link d-flex justify-content-start">
                                                             <i class='bx bx-message-square-detail nav__icon' ></i>
-                                                            <span class="nav__name">Add data</span>
+                                                            <span class="nav__name">Data</span>
                                                             <i class='bx bx-chevron-down'></i>
 
                                                         </a>
                                                         <div class="sub-menu ">
-                                                            <a href="#" class="sub-item nav__link border-top">Employee satisfaction</a>
-                                                            
+                                                            <a href="./staff-performance.php?id=<?php echo $user_id?>" class="sub-item nav__link border-top">Add Performances </a>
                                                         </div>
                                                     </div>
                                             
@@ -112,7 +127,7 @@ while($row=mysqli_fetch_array($res))
                                                         <div class="sub-menu ">
                                                                 <a href="./response-list.php" class="sub-item nav__link border-top">Response list</a>
                                                                 <a href="./create-form.php" class="sub-item nav__link border-top">Create Form</a>
-                                                                <a href="#" class="sub-item nav__link border-top">Form template</a>
+                                                                <a href="./form-bookmark.php" class="sub-item nav__link border-top">Bookmark</a>
 
                                                         </div>
                                     
@@ -124,7 +139,7 @@ while($row=mysqli_fetch_array($res))
                                                 
                                                     
                                                     <div class="nav__list ">
-                                                        <a href="./login.html" class="nav__link">
+                                                        <a href="./logout.php" class="nav__link">
                                                                 <i class='bx bx-log-out nav__icon' ></i>
                                                                 <span class="nav__name">Log Out</span>
 
@@ -138,19 +153,20 @@ while($row=mysqli_fetch_array($res))
                                     </div>
                         <!--end Sidebar part-->
 
+
                         <!-- Content part-->
                                     <div class="content">
                                         <div class="container-fluid">
 
                                             <div class="card-1">
-                                                <h2 class="mb-4 border-bottom">Statistic</h1>
+                                                <h2 class="mb-4 border-bottom">Employee</h1>
           
                                                 <div class="row mb-5">
                                                         <div class="col-lg-12">
                                                             <div class="card">
                                                                 <div class="stat-widget-two card-body">
                                                                     <div class="card-header">
-                                                                        <h4 class="heading-secondary mb-2">Add staff</h4>
+                                                                        <h4 class="heading-secondary mb-2">Edit staff</h4>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <form action="" class="row" method="post">
@@ -261,15 +277,15 @@ while($row=mysqli_fetch_array($res))
                                                                     <table id="forms-tbl" class="table table-striped" width="100%">
                                                                         <thead>
                                                                             <tr>
-                                                                                    <th>#</th>
-                                                                                    <th>Username</th>
-                                                                                    <th>Fullname</th>
-                                                                                    <th>Phone Number</th>
-                                                                                    <th>Email</th>
-                                                                                    <th>Gender</th>
-                                                                                    <th>Role</th>
-                                                                                    <th>Status</th>
-                                                                                    <th>Action</th>
+                                                                                    <th class="text-center">#</th>
+                                                                                    <th class="text-center">Username</th>
+                                                                                    <th class="text-center">Fullname</th>
+                                                                                    <th class="text-center">Phone Number</th>
+                                                                                    <th class="text-center">Email</th>
+                                                                                    <th class="text-center">Gender</th>
+                                                                                    <th class="text-center">Role</th>
+                                                                                    <th class="text-center">Status</th>
+                                                                                    <th class="text-center">Action</th>
                                                                             </tr>
                                                                         </thead>
                                                                         
@@ -292,17 +308,18 @@ while($row=mysqli_fetch_array($res))
                                                             <tr>
                                                                 <td class="text-center"><?php echo $i++ ?></td>
 
-                                                                <td><?php echo $row["username"]; ?></td>
-                                                                <td><?php echo $row["fullname"]; ?></td>
-                                                                <td><?php echo $row["phone"]; ?></td>
-                                                                <td><?php echo $row["email"]; ?></td>
-                                                                <td><?php echo $row["gender"]; ?></td>
-                                                                <td><?php echo $row["role"]; ?></td>
-                                                                <td><?php echo $row["status"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["username"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["fullname"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["phone"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["email"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["gender"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["role"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["status"]; ?></td>
 
                                                                 <td class='text-center'>
-                                                                    <a href="edit-staff.php?id=<?php echo $row["id"]; ?>">Edit</a>
-                                                                 <a href="delete-staff.php?id=<?php echo $row["id"]; ?>">Delete</a>
+                                                                    <a class="btn-link" href="edit-staff.php?id=<?php echo $row["id"]; ?>">Edit</a>
+                                                                    <a href="delete-staff.php?id=<?php echo $row["id"]; ?>" class="btn-link btn-del" ><i class='bx-1 bx bx-trash-alt'></i></a>
+
                                                                 </td>
                                                                 
 
@@ -368,13 +385,16 @@ while($row=mysqli_fetch_array($res))
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
 
+        <script src="js/sweetalert.js"></script>
         <script src="js/form-build-display.js"></script>
         <script src="js/chart.js"></script>
         <script src="js/pulldown-menu.js"></script>
-        <script src="js/datatables.js"></script>
+        <script src="js/delete-data.js"></script>
+        <script src="js/datatable.js"></script>
         <script src="js/script.js"></script>
-        
     </body>
 </html>
 

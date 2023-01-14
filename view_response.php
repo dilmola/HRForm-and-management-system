@@ -3,6 +3,7 @@ extract($_GET);
 ?>
 
 <?php 
+session_start();
 
 ob_start();
 require_once('./classes/DBConnection.php');
@@ -16,6 +17,21 @@ if(empty($code)){
 ob_end_flush();
 ?>
 
+<?php
+if (isset($_SESSION["email"])){
+    $email = $_SESSION["email"];
+    $query = "SELECT * FROM user WHERE email = '{$email}'";
+
+    $select_user_email_query = mysqli_query($conn, $query);
+
+    while($row = mysqli_fetch_array($select_user_email_query)) {
+        $user_id = $row['id'];
+        $username = $row['username'];
+
+    }
+}
+
+?>
 <!DOCTYPE html>
 
 <html>
@@ -44,7 +60,7 @@ ob_end_flush();
         <div class="admin-dashboard">
             <header class="header-dashboard d-flex justify-content-end">
                 
-                    <h2 class="header-dashboard__name">Hi! Aidil</h2>
+                    <h2 class="header-dashboard__name">Hi! <?php echo $username; ?></h2>
                   
             </header>
         
@@ -52,14 +68,15 @@ ob_end_flush();
 
 
                         <!-- Sidebar part-->
-                                    <div class="sidebar-box">        
+                                   
+                            <div class="sidebar-box">        
                                         <div class="sidebar">
                                             <nav class="nav">
                             
                                                 
                             
                                                     <div class="nav__list">
-                                                        <a href="./admin-dashboard.php" class="nav__logo">
+                                                    <a href="./admin-dashboard.php?id=<?php echo $user_id?>" class="nav__logo">
                                                             <img src="includes/logo.svg" alt="" class="nav__logo" >
                                                         </a>
                                                         
@@ -68,13 +85,12 @@ ob_end_flush();
                                                     <div class="nav__list">
                                                     <a href="#" class="nav__link d-flex justify-content-start">
                                                             <i class='bx bx-user nav__icon' ></i>
+
                                                             <span class="nav__name">Employee</span>
                                                             <i class='bx bx-chevron-down'></i>
                                                         </a>
                                                         <div class="sub-menu ">
                                                             <a href="./add-staff.php" class="sub-item nav__link border-top">Add employee</a>
-                                                            <a href="#" class="sub-item nav__link border-top">Add status employee </a>
-                                                            
                                                         </div>
                                                     </div>
                                                     
@@ -83,13 +99,12 @@ ob_end_flush();
                                                         
                                                         <a href="#" class="nav__link d-flex justify-content-start">
                                                             <i class='bx bx-message-square-detail nav__icon' ></i>
-                                                            <span class="nav__name">Add data</span>
+                                                            <span class="nav__name">Data</span>
                                                             <i class='bx bx-chevron-down'></i>
 
                                                         </a>
                                                         <div class="sub-menu ">
-                                                            <a href="#" class="sub-item nav__link border-top">Employee satisfaction</a>
-                                                            
+                                                            <a href="./staff-performance.php?id=<?php echo $user_id?>" class="sub-item nav__link border-top">Add Performances </a>
                                                         </div>
                                                     </div>
                                             
@@ -102,7 +117,7 @@ ob_end_flush();
                                                         <div class="sub-menu ">
                                                                 <a href="./response-list.php" class="sub-item nav__link border-top">Response list</a>
                                                                 <a href="./create-form.php" class="sub-item nav__link border-top">Create Form</a>
-                                                                <a href="#" class="sub-item nav__link border-top">Form template</a>
+                                                                <a href="./form-bookmark.php" class="sub-item nav__link border-top">Bookmark</a>
 
                                                         </div>
                                     
@@ -114,7 +129,7 @@ ob_end_flush();
                                                 
                                                     
                                                     <div class="nav__list ">
-                                                        <a href="./login.html" class="nav__link">
+                                                        <a href="./logout.php" class="nav__link">
                                                                 <i class='bx bx-log-out nav__icon' ></i>
                                                                 <span class="nav__name">Log Out</span>
 
@@ -127,6 +142,7 @@ ob_end_flush();
                                         </div>
                                     </div>
                         <!--end Sidebar part-->
+
 
                         <!-- Content part-->
                                     <div class="content">

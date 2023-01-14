@@ -1,3 +1,26 @@
+<?php 
+
+require_once('./classes/DBConnection.php');
+session_start();
+$db = new DBConnection();
+?>
+
+<?php
+if (isset($_SESSION["email"])){
+    $email = $_SESSION["email"];
+    $query = "SELECT * FROM user WHERE email = '{$email}'";
+
+    $select_user_email_query = mysqli_query($conn, $query);
+
+    while($row = mysqli_fetch_array($select_user_email_query)) {
+        $user_id = $row['id'];
+        $username = $row['username'];
+
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -23,101 +46,87 @@
         <div class="admin-dashboard">
             <header class="header-dashboard d-flex justify-content-end">
                 
-                    <h2 class="header-dashboard__name">Hi! Aidil</h2>
+            <h2 class="header-dashboard__name">Hi! <?php echo $username; ?></h2>
                   
             </header>
 
 
-
-<!-- Sidebar part-->
-            <div class="sidebar-box">        
-                <div class="sidebar">
-                    <nav class="nav">
-    
-                        
-    
-                            <div class="nav__list">
-                                <a href="./admin-dashboard.php" class="nav__logo">
-                                    <img src="includes/logo.svg" alt="" class="nav__logo" >
-                                </a>
-                                
-                            </div>
-        
-                            <div class="nav__list">
-                                <a href="#" class="nav__link d-flex justify-content-start">
-                                    <i class='bx bx-grid-alt nav__icon ' ></i>
-                                    <span class="nav__name ">Dashboard</span>
-                                    <i class='bx bx-chevron-down'></i>
-                                </a>
-                                <div class="sub-menu ">
-                                    <a href="#" class="sub-item nav__link border-top">sub item</a>
-                                    <a href="#" class="sub-item nav__link border-top">sub item 2</a>
-
-                                </div>
-                            </div>
+                        <!-- Sidebar part-->
+                                   
+                            <div class="sidebar-box">        
+                                        <div class="sidebar">
+                                            <nav class="nav">
                             
-                            <div class="nav__list">
-                                <a href="#" class="nav__link d-flex justify-content-start">
-                                    <i class='bx bx-user nav__icon' ></i>
-                                    <span class="nav__name">Employee</span>
-                                    <i class='bx bx-chevron-down'></i>
-                                </a>
-                                <div class="sub-menu ">
-                                    <a href="./add-staff.php" class="sub-item nav__link border-top">Add employee</a>
-                                    <a href="#" class="sub-item nav__link border-top">Leave employee</a>
+                                                
+                            
+                                                    <div class="nav__list">
+                                                    <a href="./admin-dashboard.php?id=<?php echo $user_id?>" class="nav__logo">
+                                                            <img src="includes/logo.svg" alt="" class="nav__logo" >
+                                                        </a>
+                                                        
+                                                    </div>
+                                
+                                                    <div class="nav__list">
+                                                    <a href="#" class="nav__link d-flex justify-content-start">
+                                                            <i class='bx bx-user nav__icon' ></i>
+
+                                                            <span class="nav__name">Employee</span>
+                                                            <i class='bx bx-chevron-down'></i>
+                                                        </a>
+                                                        <div class="sub-menu ">
+                                                            <a href="./add-staff.php" class="sub-item nav__link border-top">Add employee</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="nav__list">
+                                                        
+                                                        
+                                                        <a href="#" class="nav__link d-flex justify-content-start">
+                                                            <i class='bx bx-message-square-detail nav__icon' ></i>
+                                                            <span class="nav__name">Data</span>
+                                                            <i class='bx bx-chevron-down'></i>
+
+                                                        </a>
+                                                        <div class="sub-menu ">
+                                                            <a href="./staff-performance.php?id=<?php echo $user_id?>" class="sub-item nav__link border-top">Add Performances </a>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="nav__list margin-bottom-gap">
+                                                        <a href="#" class="nav__link d-flex justify-content-start">
+                                                            <i class='bx bx-grid-alt nav__icon' ></i>
+                                                            <span class="nav__name">Form</span>
+                                                            <i class='bx bx-chevron-down'></i>
+                                                        </a>
+                                                        <div class="sub-menu ">
+                                                                <a href="./response-list.php" class="sub-item nav__link border-top">Response list</a>
+                                                                <a href="./create-form.php" class="sub-item nav__link border-top">Create Form</a>
+                                                                <a href="./form-bookmark.php" class="sub-item nav__link border-top">Bookmark</a>
+
+                                                        </div>
                                     
-                                </div>
-                                
-                                <a href="#" class="nav__link d-flex justify-content-start">
-                                    <i class='bx bx-message-square-detail nav__icon' ></i>
-                                    <span class="nav__name">Add data</span>
-                                    <i class='bx bx-chevron-down'></i>
+                                                    
+                                                        
+                                                        
+                                                    </div>
 
-                                </a>
-                                <div class="sub-menu ">
-                                    <a href="#" class="sub-item nav__link">sub item</a>
-                                    <a href="#" class="sub-item nav__link">sub item 2</a>
-                                </div>
-                            </div>
-                      
-                            <div class="nav__list">
-                                <a href="#" class="nav__link d-flex justify-content-start">
-                                    <i class='bx bx-grid-alt nav__icon' ></i>
-                                    <span class="nav__name">Form</span>
-                                    <i class='bx bx-chevron-down'></i>
-                                </a>
-                                <div class="sub-menu ">
-                                        <a href="#" class="sub-item nav__link">Response list</a>
-                                        <a href="#" class="sub-item nav__link">sub item 2</a>
-                                </div>
-            
-                                <a href="#" class="nav__link">
-                                        <i class='bx bx-user nav__icon' ></i>
-                                        <span class="nav__name">Form template</span>
-                                </a>
-                                
-                                <a href="./form-list.php" class="nav__link">
-                                        <i class='bx bx-message-square-detail nav__icon' ></i>
-                                    <span class="nav__name">Form list</span>
-                                </a>
-                            </div>
+                                                
+                                                    
+                                                    <div class="nav__list ">
+                                                        <a href="./logout.php" class="nav__link">
+                                                                <i class='bx bx-log-out nav__icon' ></i>
+                                                                <span class="nav__name">Log Out</span>
 
-                          
+                                                        </a>
+                                                    </div>
+                                            
                             
-                            <div class="nav__list">
-                                <a href="./login.html" class="nav__link">
-                                        <i class='bx bx-log-out nav__icon' ></i>
-                                        <span class="nav__name">Log Out</span>
-                                </a>
-                            </div>
-                       
-    
-    
-                    </nav>
-                </div>
-            </div>
+                            
+                                            </nav>
+                                        </div>
+                                    </div>
+                        <!--end Sidebar part-->
 
-<!--End Sidebar part-->
 
 <!-- Content part-->
 <div class="content"> 
@@ -125,7 +134,6 @@
             <div class="card-1">
                 <h2 class="mb-4 border-bottom"><?php echo isset($_GET['code']) ? "Edit" : "Create New" ?> Form</h2>
            
-            <hr class="border-dark">
             <div class="" id="form-field">
                 <form id="form-data">
                     <div class="row">
@@ -141,7 +149,7 @@
                     <div>
                         <div id="question-field" class='row ml-2 mr-2'>
                             <div class="card mt-3 mb-3 col-md-12 question-item ui-state-default" data-item="0">
-                                <span class="item-move"><i class="fa fa-braille"></i></span>
+                                <span class="item-move"><i class='bx bx-expand' ></i></span>
                                 <div class="card-body">
                                     <div class="row align-items-center d-flex">
                                         <div class="col-sm-8">
@@ -171,21 +179,28 @@
                                                 * Required 
                                             </label>
                                         </div>
-                                        <button class="btn btn-default border rem-q-item" type="button"><i class='bx bx-trash-alt'></i></button>
+                                        <button class="btn btn-default border rem-q-item" type="button"><i class='bx bx-trash' ></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex w-100 justify-content-center" id="form-buidler-action">
-                        <button class="btn btn-default border mr-1" type="button" id="add_q-item"><i class="fa fa-plus"></i> Add Item</button>
+                       
+                    
+                       <div class="form-group mb-3">
+                       <div class="d-flex w-100 justify-content-center" id="form-buidler-action">
+
+                       <button class="btn btn-default border mr-1" type="button" id="add_q-item"><i class="fa fa-plus"></i> Add Item</button>
                         <button class="btn btn-default border ml-1" type="button" id="save_form"><i class="fa fa-save"></i> Save Form</button>
-                    </div>
+
+                       </div>
+                   
+                   
                 </form>
             </div>
             <div class=" d-none" id = "q-item-clone">
             <div class="card mt-3 mb-3 col-md-12 question-item ui-state-default" data-item="0">
-                <span class="item-move"><i class="fa fa-braille"></i></span>
+                <span class="item-move"><i class='bx bx-expand' ></i></span>
                 <div class="card-body">
                     <div class="row align-items-center d-flex">
                         <div class="col-sm-8">
@@ -227,6 +242,11 @@
     </div>
 
 
+    
+</div>
+      
+
+        
     <!--End Content part-->
     <footer class="footer">
      
@@ -236,12 +256,7 @@
 
                 </div>
 
-            </footer>
-</div>
-      
-
-        
-    
+    </footer>
 
 
 
@@ -265,12 +280,6 @@
         <script src="js/script.js"></script>
     </body>
 </html>
-
-
-
-
-
-
 
 
 

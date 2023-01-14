@@ -66,13 +66,13 @@ $(function() {
             } else if (choice == "checkbox") {
                 $(this).closest('.question-item').find('.choice-field').html('<button type="button" class="add_chk btn btn-sm btn-default border"><i class="fa fa-plus"></i> Add option</button>')
                 add_checkbox()
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 2; i++) {
                     checkbox_field($(this), _field, "Enter Option")
                 }
             } else if (choice == "radio") {
                 $(this).closest('.question-item').find('.choice-field').html('<button type="button" class="add_radio btn btn-sm btn-default border"><i class="fa fa-plus"></i> Add option</button>')
                 add_radio()
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 2; i++) {
                     radio_field($(this), _field, "Enter Option")
                 }
             } else if (choice == "file") {
@@ -129,11 +129,11 @@ $(function() {
         rem.attr({
             "class": "col-sm-1 rem-on-display",
         })
-        rem.append("<button class='btn btn-sm btn-default' type='button'><span class='fa fa-times'></span></button>")
+        rem.append("<button class='btn-x' type='button'><i class='bx bx-x'></i></button>")
         rem.attr('onclick', "$(this).closest('.row').remove()")
         var item = create_checkbox_field(_field, _text)
         chk.append(item)
-        el = $("<div class='row w-100'>")
+        el = $("<div class='row w-100 mb-2'>")
         el.append(rem)
         el.append(chk)
         _this.closest('.question-item').find('.choice-field .add_chk').before(el)
@@ -148,11 +148,11 @@ $(function() {
         rem.attr({
             "class": "col-sm-1 rem-on-display",
         })
-        rem.append("<button class='btn btn-sm btn-default' type='button'><span class='fa fa-times'></span></button>")
+        rem.append("<button class='btn-x' type='button'><i class='bx bx-x'></i></button>")
         rem.attr('onclick', "$(this).closest('.row').remove()")
         var item = create_radio_field(_field, _text)
         chk.append(item)
-        el = $("<div class='row w-100'>")
+        el = $("<div class='row w-100 mb-2'>")
         el.append(rem)
         el.append(chk)
         _this.closest('.question-item').find('.choice-field .add_radio').before(el)
@@ -223,7 +223,7 @@ $(function() {
         $.ajax({
             url: "classes/Forms.php?a=save_form",
             method: 'POST',
-            data: { form_data: new_el.html(), description: description, title: title, form_code: form_code },
+            data: { form_data: new_el.html(), description: description, title: title, form_code: form_code},
             dataType: 'json',
             error: err => {
                 console.log(err)
@@ -244,6 +244,8 @@ $(function() {
     $('#save_form').click(function() {
         save_form()
     })
+
+    
 })
 
 

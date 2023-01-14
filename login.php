@@ -10,6 +10,77 @@ require_once('./classes/DBConnection.php');
 
 
 
+  
+
+$errMsg1 = $errMsg2 = "";
+$email = $pass = "";
+
+
+
+?>
+
+
+<?php
+
+
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+  
+
+    if (empty ($_POST["email"])) {  
+        $errMsg1 = "Error! You didn't enter the email.";  
+    } else {  
+        $email = $_POST["email"];  
+    }  
+
+    if (empty ($_POST["pass"])) {  
+        $errMsg2 = "Error! You didn't enter the pass.";  
+    } else {  
+        $password = $_POST["pass"];  
+    }  
+
+    $email=mysqli_real_escape_string($conn,$_POST["email"]);
+    $password=mysqli_real_escape_string($conn,$_POST["pass"]);
+
+ 
+
+    
+    $count=0;
+    $res=mysqli_query($conn,"SELECT * FROM user WHERE email='$email' && pass='$password' ");
+    $count=mysqli_num_rows($res);
+    $row=mysqli_fetch_array($res);
+    if($count>0) {
+    
+       
+    if($row["role_id"]=="2")
+    {
+        $_SESSION["email"]=$email;
+        $_SESSION["pass"]=$password;
+        $row["id"]=$id;
+        header("location:admin-dashboard.php");
+    }
+
+    elseif($row["role_id"]=="1")
+    {
+        $_SESSION["email"]=$email;
+        $_SESSION["pass"]=$password;
+        $row["id"]=$id;
+
+        header("location:staff-dashboard.php");
+    }
+    }else {
+        $errMsg3 = "user not found";  
+        
+    }
+    
+
+
+
+
+}        
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -43,26 +114,31 @@ require_once('./classes/DBConnection.php');
                         <div class="position-absolute top-50 start-50 translate-middle body_form"> 
                         
                             <h1 class="heading-primary mb-5 mt-5">Welcome back</h1>
-                            <h2 class="heading-secondary mb-5">Admin Login</h2>
+                            <h2 class="heading-secondary mb-5">Login</h2>
 
                             <form action="" class="form" method="post">
 
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <div>
-                                                <input type="email" class="form-control mt-1 mb-3" placeholder="hello@example.com" name="email">
+                                            <div class="mb-3">
+                                                <input type="email" class="form-control mt-1 " placeholder="hello@example.com" name="email"> 
+                                                <span class="error error-color"><?php echo $errMsg1;?></span>
+
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
-                                            <div>
-                                                <input type="password" class="form-control mt-1 mb-5" placeholder="password" name="pass">
+                                            <div class="mb-5">
+                                                <input type="password" class="form-control mt-1 " placeholder="password" name="pass" >
+                                                <span class="error error-color"><?php echo $errMsg2;?></span>
+
+
                                             </div>
                                         </div>
 
                                         <div class="form-group mb-5 text-center ">
-                                            <button class="btn btn-orange" name="submit1" >Login</a>
+                                            <button class="btn" name="submit1" >Login</a>
                                         </div>
 
                                         <div class="new-account mb-4 text-center">
@@ -99,44 +175,8 @@ require_once('./classes/DBConnection.php');
     </body>
 </html>
 
-<?php
-if(isset($_POST["submit1"]))
-{
-    $email=mysqli_real_escape_string($conn,$_POST["email"]);
-    $password=mysqli_real_escape_string($conn,$_POST["pass"]);
-
-    $count=0;
-    $res=mysqli_query($conn,"SELECT * FROM user WHERE email='$email' && pass='$password' ");
-    $count=mysqli_num_rows($res);
-    $row=mysqli_fetch_array($res);
-    if($count>0) {
-    
-       
-    if($row["role_id"]=="2")
-    {
-        $_SESSION["email"]=$email;
-        $_SESSION["pass"]=$password;
-       
-        header("location:admin-dashboard.php");
-    }
-
-    elseif($row["role_id"]=="1")
-    {
-        $_SESSION["email"]=$email;
-        $_SESSION["pass"]=$password;
-        header("location:staff-dashboard.php");
-    }
-
-
-    }
 
 
 
-
-}
-
-  
-
-?>
 
 
